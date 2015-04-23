@@ -1,13 +1,9 @@
-<div class="row col s12"> 
 
-
-
-
-
-  <div>
-
-    <div class="container col s6">
-      <p> CHOOSE AN EVENT HERE: </p>
+<!-- <div class="row"> -->
+<div class="col s12">
+  <div class="col s3"></div>
+    <div class="eventList col s6">
+      <!-- <p> CHOOSE AN EVENT HERE: </p> -->
       <ul class='collapsible popout' data-collapsible="accordion">
         <li class = 'event accordian' ng-repeat="event in eventsList | orderBy:'datetime'" accordian>
           <div class='description collapsible-header'>{{event.description}}</div>
@@ -36,59 +32,59 @@
         </li>
       </ul>   
     </div>
-
-  </div>
-
-
-
-
-
-
-
-
-  <div class='addevent col s6'>
-
-    <div style="margin: 15px 0 0 0"> CREATE AN EVENT HERE: </div>
-    <form name="eventForm" ng-submit="addEvent()">
-      <div class="input-field col s12">
-        <input type= "text" ng-model = "newEvent.location">
-      </div>
-      <div class="input-field col s12">
-        <input type= "text" ng-model = "newEvent.description">
-      </div>
-      <div class="input-field col s6">
-        <input type= "date" ng-model = "newEvent.date">
-      </div>
-      <div class="input-field col s6">
-        <input type= "time" ng-model = "newEvent.time">
-      </div>   
-      <div class="input-field col s12">
-        <input type="text" name="add-task" class='add task' placeholder="Add your item here" ng-model="taskName" ng-keyup="addTask()"/>
-      </div>
-      <div class="col s12">
-        <div class="btn waves-effect waves-light btn-large right" ng-click="addEvent()">Submit Event</div>
-      </div>
-      <h1 ng-if="invalid">
-        Please fill in all of the fields.
-      </h1>
-    </form>
-    <div class="col s12">
-      <ul id="todo-list">
-        <li ng-repeat="task in tasklist track by $index" ng-mouseenter="task.show = true; item= 'focus'" ng-mouseleave="task.show = false; item = 'nofocus'" ng-class='item'>
-          <span class="completed-{{task.completed}}">{{task.name}}</span>
-          <span class="delete icon" title="Delete Task" ng-show="task.show" ng-click="deleteTask(tasklist.indexOf(task))"></span>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-
-
-
-
-
-
+  <div class="col s3"></div>
 </div>
+<!-- </div> -->
+
+<!-- <div class="row"> -->
+<div class="col s12">
+  <div class="col s3"></div>
+    <div class='slideout-menu addevent col s6'>
+      <div style="margin: 15px 0 0 0"> CREATE AN EVENT HERE: </div>
+        
+        <form name="eventForm" ng-submit="addEvent()">
+          <div class="input-field col s12">
+            <input type= "text" ng-model = "newEvent.description" placeholder="Event Name">
+          </div>
+          <div class="input-field col s12">
+            <input type= "text" ng-model = "newEvent.location" placeholder="Location">
+          </div>
+          <div class="input-field col s12">
+            <textarea id="details" class="materialize-textarea">
+            </textarea>
+            <label for="details"> Meat and Potatoes </label>
+          </div>
+          <div class="input-field col s6">
+            <input type= "date" ng-model = "newEvent.date">
+          </div>
+          <div class="input-field col s6">
+            <input type= "time" ng-model = "newEvent.time">
+          </div>   
+          <div class="input-field col s12">
+            <input type="text" name="add-task" class='add task' placeholder="Add your item here" ng-model="taskName" ng-keyup="addTask()"/>
+          </div>
+          <div class="col s12">
+            <div class="btn waves-effect waves-light btn-large right" ng-click="addEvent()">Submit Event</div>
+          </div>
+          <h1 ng-if="invalid">
+            Please fill in all of the fields.
+          </h1>
+        </form>
+
+      <div class="col s12">
+        <ul id="todo-list">
+          <li ng-repeat="task in tasklist track by $index" ng-mouseenter="task.show = true; item= 'focus'" ng-mouseleave="task.show = false; item = 'nofocus'" ng-class='item'>
+            <span class="completed-{{task.completed}}">{{task.name}}</span>
+            <span class="delete icon" title="Delete Task" ng-show="task.show" ng-click="deleteTask(tasklist.indexOf(task))"></span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  <div class="col s3"></div>
+</div>
+
+<!-- </div> -->
 
 
 
