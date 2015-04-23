@@ -5,12 +5,14 @@ angular.module('lunchCorgi.events', [])
   $scope.event = {}
 
   //if $scope.invalid is true, it will display an error message in the view
-  $scope.invalid = false
 
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
     var userToken = $window.localStorage.getItem('com.corgi');
-    Events.joinEvent(evt, userToken);
+    Events.joinEvent(evt, userToken)
+    .then(function() {
+      evt.attendeeIDs.push({username:'bob'})
+    });
   }
 
   $scope.addEvent = function() {
@@ -20,20 +22,21 @@ angular.module('lunchCorgi.events', [])
         $scope.newEvent.location !== "" &&
         $scope.newEvent.datetime !== "" ) {
 
-          $scope.invalid = false
+          // $scope.invalid = false
           var userToken = $window.localStorage.getItem('com.corgi');
 
           Events.addEvent($scope.newEvent, userToken)
           .then(function(newEvent) {
             // need a better way to notify people, but this is simple for now
-            Materialize.toast('New Event Created!', 4000)
+            Materialize.toast('New Event Created!', 1000)
             // return to defaults
             $scope.viewAllEvents();
             $scope.initNewEventForm()
           });
         } else {
-          $scope.invalid = true
-        }     
+          Materialize.toast('Please fill in all of the fields', 1000)
+          // $scope.invalid = true
+        }
   }
 
   // first page of events is page number 0; when more events are viewed, the page number is increased
@@ -47,7 +50,7 @@ angular.module('lunchCorgi.events', [])
     $scope.newEvent.description = ''
     $scope.newEvent.location = ''
     $scope.newEvent.time = (new Date()).toTimeString().substr(0,5)
-    $scope.newEvent.date = new Date(new Date() + new Date().getTimezoneOffset()*60000).toISOString().substr(0,10)    
+    $scope.newEvent.date = new Date(new Date() + new Date().getTimezoneOffset()*60000).toISOString().substr(0,10)
     $scope.newEvent.tasklist = []
     $scope.tasklist = []
   }
@@ -58,7 +61,7 @@ angular.module('lunchCorgi.events', [])
     if ( $window.localStorage.getItem('com.corgi') ) {
       Events.getEvents($scope.pageNumber)
       .then(function(data) {
-        // set $scope.eventsList equal to the data we get back from our http request - that's how we 
+        // set $scope.eventsList equal to the data we get back from our http request - that's how we
         // populate the actual event views in the template.
         $scope.eventsList = data;
       });
@@ -68,12 +71,12 @@ angular.module('lunchCorgi.events', [])
   };
 
   $scope.nextPage = function() {
-    // need some way to limit how many pages people can go forward; it seems to get messed up if people 
+    // need some way to limit how many pages people can go forward; it seems to get messed up if people
     // navigate past where there are no more results to show.
     $scope.pageNumber++
     $scope.viewAllEvents()
   };
-  
+
   $scope.prevPage = function() {
     // only go back a page if the page number is greater than 0
     if ($scope.pageNumber > 0) {
@@ -81,7 +84,7 @@ angular.module('lunchCorgi.events', [])
       $scope.viewAllEvents()
     }
   };
-  
+
   // show events when the page is first loaded.
   $scope.viewAllEvents()
   // populate new event form with default values
@@ -89,12 +92,12 @@ angular.module('lunchCorgi.events', [])
 
   $scope.tasklist = [];
   //$scope.priority = 'medium';
-  
+
   $scope.addTask = function() {
       if(event.keyCode == 13 && $scope.taskName) {
-          $scope.tasklist.push({"name": $scope.taskName, "completed": false}); 
-          $scope.newEvent.tasklist.push({"name": $scope.taskName, "completed": false}); 
-            //,"priority": $scope.priority});   
+          $scope.tasklist.push({"name": $scope.taskName, "completed": false});
+          $scope.newEvent.tasklist.push({"name": $scope.taskName, "completed": false});
+            //,"priority": $scope.priority});
           $scope.taskName = "";
           //$scope.priority = 'medium';
       }

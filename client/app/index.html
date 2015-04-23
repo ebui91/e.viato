@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>e.viato</title>
+  <link rel="shortcut icon" href="/client/assets/logoicon.png">
 
   <link rel="stylesheet" href="/client/styles/app.css">
   <link rel="stylesheet" href="../../client/materialize/css/materialize.css">
@@ -20,52 +21,54 @@
   <script src ='/client/app/components/version/interpolate-filter.js'></script>
   <script src ='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js'></script>
   <script src ='//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.0/angular-moment.min.js'></script>
-  
+
    <script>
-    $(document).ready(function(){
-      $(".slideButton").on('click', function(event){
-        event.preventDefault();
+    // $(document).ready(function(){
+    //   $(".slideButton").on('click', function(event){
+    //     event.preventDefault();
 
-        var slideoutMenu = $('.slideout-menu');
-        var slideoutMenuWidth = $('.slideout-menu').width();
-        var eventList = $('.eventList');
-        var eventListWidth = $('.eventList').width();
+    //     var slideoutMenu = $('.slideout-menu');
+    //     var slideoutMenuWidth = $('.slideout-menu').width();
+    //     var eventList = $('.eventList');
+    //     var eventListWidth = $('.eventList').width();
 
-        slideoutMenu.toggleClass("open")
+    //     slideoutMenu.toggleClass("open")
 
-        if (slideoutMenu.hasClass("open")) {
-          slideoutMenu.animate({
-            right: 0
-          }, 500)
-          eventList.animate({
-            left: -eventListWidth
-          }, 500)
-        } else{
-          slideoutMenu.animate({
-            right: -slideoutMenuWidth
-          }, 500)
-          eventList.animate({
-            left: 0
-          }, 500)
-        }
-      })
-    })
-    
+    //     if (slideoutMenu.hasClass("open")) {
+    //       slideoutMenu.animate({
+    //         right: 0
+    //       }, 500)
+    //       eventList.animate({
+    //         left: -eventListWidth
+    //       }, 500)
+    //     } else{
+    //       slideoutMenu.animate({
+    //         right: -slideoutMenuWidth
+    //       }, 500)
+    //       eventList.animate({
+    //         left: 0
+    //       }, 500)
+    //     }
+    //   })
+    // })
    </script>
 
 </head>
 
 <body>
-  <nav>
+  <nav class="teal accent-4">
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo">
-        <img style="height:55px;" src="../../client/assets/eviato.png"></img>
+        <img style="height:55px;" src="../../client/assets/logoicon3.png"></img>
+      </a>
+      <a href="#!" class="brand-logo center">
+        <img style="height:55px;" src="../../client/assets/logotitle.png"></img>
       </a>
       <ul class="right hide-on-med-and-down">
         <li><a href=""><i class="mdi-action-search"></i></a></li>
-        <li><a href="#"><i class="mdi-action-view-module slideButton"></i></a></li>
+        <!-- <li><a href="#"><i class="mdi-action-view-module slideButton"></i></a></li> -->
         <li><a href="#"><i class="mdi-navigation-refresh"></i></a></li>
-        <li><a href=""><i class="mdi-navigation-more-vert"></i></a></li>
+        <li><a href="#/signin"><i class="mdi-action-exit-to-app"></i></a></li>
       </ul>
     </div>
   </nav>

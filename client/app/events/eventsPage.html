@@ -1,90 +1,87 @@
 
-<!-- <div class="row"> -->
-<div class="col s12">
-  <div class="col s3"></div>
-    <div class="eventList col s6">
-      <!-- <p> CHOOSE AN EVENT HERE: </p> -->
-      <ul class='collapsible popout' data-collapsible="accordion">
-        <li class = 'event accordian' ng-repeat="event in eventsList | orderBy:'datetime'" accordian>
-          <div class='description collapsible-header'>{{event.description}}</div>
-          <div class='eventInfo collapsible-body' style="margin-left: 20px;">
-            <div class='creator'>{{event.creator}}</div>
-            <div class='location'>{{event.location}}</div>
-            <div class='date'>{{event.date}}</div>
-            <div class='time'>{{event.time}}</div>
-            <div class='time'>{{event.datetime | date : 'MM/dd/yyyy @ h:mma' }}</div>        
-            <div class='time'>{{event.datetime | fromNow }}</div>
-            <div class="divider"></div>
-            <div class='attendee-list'>
-              Who's Going?:
-              <div class='attendee' ng-repeat="attendee in event.attendeeIDs">{{attendee.username}}
-              </div>
+<div class="row">
+
+  <div class="eventList col s6">
+    <h5><blockquote style="margin: 15px 0 0 0"> CHOOSE AN EVENT HERE: </blockquote></h5>
+    <ul class='collapsible popout' data-collapsible="accordion">
+      <li class = 'event accordian' ng-repeat="event in eventsList | orderBy:'datetime'" accordian>
+        <div class='description collapsible-header'>
+          <b class="red-text text-darken-4">{{event.description}}</b> @ {{event.location}}
+        </div>
+        <div class='eventInfo collapsible-body' style="margin-left: 20px;">
+          <div class='creator'><b>Host:</b> {{event.creator}}</div>
+          <!-- <div class='location'><b>Location:</b> {{event.location}} </div> -->
+          <!-- <div class='date'>{{event.date}}</div>
+          <div class='time'>{{event.time}}</div> -->
+          <div class='time'><b>When:</b> {{event.datetime | date : 'MM/dd/yyyy @ h:mma' }}</div>
+          <!-- <div class='time'>{{event.datetime | fromNow }}</div> -->
+          <div class="divider"></div>
+          <div class='attendee-list'>
+            <b>Who's Going?:</b>
+            <div class='attendee' ng-repeat="attendee in event.attendeeIDs">
+              {{attendee.username}}
             </div>
-            <div class="divider"></div>
-            <div class='task-list'>
-              Items:
-              <div class='task' ng-repeat="task in event.tasklist">
-                {{task.name}}
-              </div>
-            </div>
-            <button class="btn waves-effect waves-light right" ng-click='joinEvent(event)'>Join this event!</button>
           </div>
+          <div class="divider"></div>
+          <div class='task-list'>
+            <b>Items:</b>
+            <div class='task' ng-repeat="task in event.tasklist">
+              {{task.name}}
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light right" ng-click='joinEvent(event)' ng-show="invalid">
+            Join this event!
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class='addevent col s6 z-depth-1'>
+    <h5><blockquote style="margin: 15px 0 0 0"> CREATE AN EVENT HERE: </blockquote></h5>
+      <form name="eventForm" ng-submit="addEvent()">
+        <div class="input-field col s12">
+          <input type= "text" ng-model = "newEvent.description" placeholder="Event Name">
+        </div>
+        <div class="input-field col s12">
+          <input type= "text" ng-model = "newEvent.location" placeholder="Location">
+        </div>
+        <div class="input-field col s12">
+          <textarea id="details" class="materialize-textarea">
+          </textarea>
+          <label for="details"> Meat and Potatoes </label>
+        </div>
+        <div class="input-field col s6">
+          <input type= "date" ng-model = "newEvent.date">
+        </div>
+        <div class="input-field col s6">
+          <input type= "time" ng-model = "newEvent.time">
+        </div>
+        <div class="input-field col s12">
+          <input type="text" name="add-task" class='add task' placeholder="Add your item here" ng-model="taskName" ng-keyup="addTask()"/>
+        </div>
+        <div class="col s12">
+          <div class="btn waves-effect waves-light btn-large right" ng-click="addEvent()">Submit Event</div>
+        </div>
+        <!-- <h5 class="red-text text-darken-3" ng-if="invalid">
+          Please fill in all of the fields.
+        </h5> -->
+      </form>
+
+    <div class="col s12">
+      <ul id="todo-list">
+        <li ng-repeat="task in tasklist track by $index" ng-mouseenter="task.show = true; item= 'focus'" ng-mouseleave="task.show = false; item = 'nofocus'" ng-class='item'>
+          <span class="completed-{{task.completed}}">{{task.name}}</span>
+          <span class="delete icon" title="Delete Task" ng-show="task.show" ng-click="deleteTask(tasklist.indexOf(task))"></span>
         </li>
-      </ul>   
+      </ul>
     </div>
-  <div class="col s3"></div>
+  </div>
+
+
+
 </div>
-<!-- </div> -->
-
-<!-- <div class="row"> -->
-<div class="col s12">
-  <div class="col s3"></div>
-    <div class='slideout-menu addevent col s6'>
-      <div style="margin: 15px 0 0 0"> CREATE AN EVENT HERE: </div>
-        
-        <form name="eventForm" ng-submit="addEvent()">
-          <div class="input-field col s12">
-            <input type= "text" ng-model = "newEvent.description" placeholder="Event Name">
-          </div>
-          <div class="input-field col s12">
-            <input type= "text" ng-model = "newEvent.location" placeholder="Location">
-          </div>
-          <div class="input-field col s12">
-            <textarea id="details" class="materialize-textarea">
-            </textarea>
-            <label for="details"> Meat and Potatoes </label>
-          </div>
-          <div class="input-field col s6">
-            <input type= "date" ng-model = "newEvent.date">
-          </div>
-          <div class="input-field col s6">
-            <input type= "time" ng-model = "newEvent.time">
-          </div>   
-          <div class="input-field col s12">
-            <input type="text" name="add-task" class='add task' placeholder="Add your item here" ng-model="taskName" ng-keyup="addTask()"/>
-          </div>
-          <div class="col s12">
-            <div class="btn waves-effect waves-light btn-large right" ng-click="addEvent()">Submit Event</div>
-          </div>
-          <h1 ng-if="invalid">
-            Please fill in all of the fields.
-          </h1>
-        </form>
-
-      <div class="col s12">
-        <ul id="todo-list">
-          <li ng-repeat="task in tasklist track by $index" ng-mouseenter="task.show = true; item= 'focus'" ng-mouseleave="task.show = false; item = 'nofocus'" ng-class='item'>
-            <span class="completed-{{task.completed}}">{{task.name}}</span>
-            <span class="delete icon" title="Delete Task" ng-show="task.show" ng-click="deleteTask(tasklist.indexOf(task))"></span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-  <div class="col s3"></div>
-</div>
-
-<!-- </div> -->
 
 
 
