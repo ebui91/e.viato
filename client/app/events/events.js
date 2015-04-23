@@ -6,11 +6,16 @@ angular.module('lunchCorgi.events', [])
 
   //if $scope.invalid is true, it will display an error message in the view
   $scope.invalid = false
+  $scope.activeEvents = true
 
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
     var userToken = $window.localStorage.getItem('com.corgi');
-    Events.joinEvent(evt, userToken);
+    Events.joinEvent(evt, userToken)
+    .then(function() {
+      $scope.flagAllEvents()
+      
+    })
   }
 
   $scope.addEvent = function() {
@@ -26,10 +31,10 @@ angular.module('lunchCorgi.events', [])
           Events.addEvent($scope.newEvent, userToken)
           .then(function(newEvent) {
             // need a better way to notify people, but this is simple for now
-            Materialize.toast('New Event Created!', 4000)
             // return to defaults
             $scope.viewAllEvents();
             $scope.initNewEventForm()
+            Materialize.toast('New Event Created!', 4000)
           });
         } else {
           $scope.invalid = true
@@ -40,7 +45,7 @@ angular.module('lunchCorgi.events', [])
   $scope.pageNumber = 0
 
   // eventsList is an array used in the template (with ng-repeat) to populate the list of events.
-  $scope.eventsList = {}
+  $scope.eventsList = []
 
   $scope.initNewEventForm = function() {
     $scope.newEvent = {}
@@ -61,11 +66,32 @@ angular.module('lunchCorgi.events', [])
         // set $scope.eventsList equal to the data we get back from our http request - that's how we 
         // populate the actual event views in the template.
         $scope.eventsList = data;
+        $scope.flagAllEvents()
       });
     } else {
       $location.path('/signin');
     }
   };
+
+  $scope.flagAllEvents = function() {
+    if($window.localStorage.getItem('com.corgi')) {
+      var userToken = $window.localStorage.getItem('com.corgi')
+      Events.getUserEvents($scope.pageNumber, userToken)
+      .then(function(data) {
+        var activeIds = data.map(function(item) {
+          return item._id
+        })
+        var len = $scope.eventsList.length
+        for(var x = 0; x < len; x++) {
+          if(activeIds.indexOf($scope.eventsList[x]._id) >= 0)
+            $scope.eventsList[x].attending = true
+          else $scope.eventsList[x].attending = false
+        }
+      })
+    } else {
+      $scope.activeEvents = false
+    }
+  }
 
   $scope.nextPage = function() {
     // need some way to limit how many pages people can go forward; it seems to get messed up if people 

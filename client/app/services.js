@@ -14,10 +14,23 @@ angular.module('lunchCorgi.services', [])
       params: {pageNum: pageNum}
     })
     .then(function(res) {
+      console.log('events:', res.data)
       return res.data
     })
 
   };
+
+  var getUserEvents = function(pageNum, userToken) {
+    return $http({
+      method: 'GET',
+      url: '/api/events',
+      params: {pageNum: pageNum, token: userToken}
+    })
+    .then(function(res) {
+      console.log('userEvents: ', res.data)
+      return res.data
+    })
+  }
 
   var joinEvent = function(event, userToken) {
       return $http({
@@ -50,7 +63,8 @@ angular.module('lunchCorgi.services', [])
   return {
     getEvents : getEvents,
     joinEvent: joinEvent,
-    addEvent : addEvent
+    addEvent : addEvent,
+    getUserEvents: getUserEvents
   }
 
 })

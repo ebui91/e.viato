@@ -19,16 +19,25 @@ mongo.connect('mongodb://localhost:27017/corgi', function(err, db) {
 module.exports = {
 	allEvents: function(req, res) {
     var events = []
-
     var cursorCount = 0
     // this is the real first line, where only events happening in the future are fetched, but...
     // var getEvents = DB.collection('corgievent').find({ datetime: { $gt: Date.now() } })
     
+    var username
+    if(req.query.token) {
+      var userToken = req.query.token
+      username = jwt.decode(userToken, 'secret')
+    }
+
+
     var iso = (new Date()).toISOString();
     
     // ...for testing, we're just fetching everything.
-    var options = { 'sort' : {'datetime': 1}, 'limit': 10}
-    var getEvents = DB.collection('corgievent').find({ 'datetime': { $gt: iso}})
+    // var options = { 'sort' : {'datetime': 1}, 'limit': 10}
+    var options = username ?
+      { attendeeIDs: {$elemMatch: {'username': username}}}
+    : {'datetime': {$gt: iso}}
+    var getEvents = DB.collection('corgievent').find(options)
     // var getEvents = DB.collection('corgievent').find({ 'datetime': { $gt: iso}},options)
       // then sort time by ascending so we can get the events happening next...
       .sort({ datetime: 1 })
@@ -118,11 +127,12 @@ module.exports = {
     // look up user by username--could just add the name directly right now, 
     // but keeping this code in case we want to store other user info later
     // such as a photo
+    // debugger
     var foundUser = DB.collection('corgiuser').find( {name: username} );
 
     foundUser.on('data', function (user) {
       // var id = user._id.toString();
-      DB.collection('corgievent').update({_id: ObjectID(eventID)}, { $push: {attendeeIDs: {username: user.name} } });
+      DB.collection('corgievent').update({_id: ObjectID(eventID)}, { $addToSet: {attendeeIDs: {username: user.name} } });
       res.end();
     });
 
