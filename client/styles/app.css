@@ -1,6 +1,6 @@
 /* app css stylesheet */
 
-.menu {
+/*.menu {
   list-style: none;
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
@@ -94,7 +94,7 @@ select {
     padding:3px;
     background: #f8f8f8;
     color:#888;
-    appearance:none;
+    display:none;
     cursor:pointer;
     width: 7%;
     margin: 10px;
@@ -123,4 +123,18 @@ select {
 
 .priority.high {
   background-color: red;
+}*/
+
+.slideout-menu {
+  position: fixed;
+  top: 75px;
+  right: -100%;
+  width: 100%;
+}
+
+.eventList {
+  position: fixed;
+  top: 75px;
+  left: 0%;
+  width: 100%;
 }
