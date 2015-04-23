@@ -14,18 +14,48 @@ angular.module('lunchCorgi.services', [])
       params: {pageNum: pageNum}
     })
     .then(function(res) {
+      console.log("events:",res.data)
+      return res.data
+    })
+
+  }
+
+  var getUserEvents = function(pageNum, userToken) {
+    return $http({
+      method: 'GET',
+      url: '/api/events',
+      params: {pageNum: pageNum, token: userToken}
+    })
+    .then(function(res) {
+      console.log("userEvents:",res.data)
       return res.data
     })
 
   };
+  //   var getEvent = function(event) {
+  //   return $http({
+  //     method: 'GET',
+  //     url: '/api/events',
+  //     params: {event: eventId}
+  //   })
+  //   .then(function(res) {
+  //     // console.log(res.data)
+  //     return res.data
+  //   })
+
+  // };
+
 
   var joinEvent = function(event, userToken) {
+      // console.log(userToken)
       return $http({
         method: 'PUT',
         url: '/api/events', 
         data: {event: event, token: userToken}
+        
       })
       .then(function (resp) {
+        console.log(resp)
         //probably superfluous, but maybe handy for debugging for now - 04/16/2015 - saf
         Materialize.toast("You were added to event " + event.description, 4000)
         return resp.statusCode; 
@@ -50,7 +80,8 @@ angular.module('lunchCorgi.services', [])
   return {
     getEvents : getEvents,
     joinEvent: joinEvent,
-    addEvent : addEvent
+    addEvent : addEvent,
+    getUserEvents: getUserEvents
   }
 
 })

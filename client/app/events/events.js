@@ -4,13 +4,19 @@ angular.module('lunchCorgi.events', [])
 
   $scope.event = {}
 
+  $scope.activeEvents = true
+
   //if $scope.invalid is true, it will display an error message in the view
   $scope.invalid = false
 
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
+    // console.log($scope.event)
     var userToken = $window.localStorage.getItem('com.corgi');
+    console.log(userToken)
+    // var eventObj = Events.getEvents($scope.event);
     Events.joinEvent(evt, userToken);
+    $scope.flagAllEvents()
   }
 
   $scope.addEvent = function() {
@@ -40,7 +46,7 @@ angular.module('lunchCorgi.events', [])
   $scope.pageNumber = 0
 
   // eventsList is an array used in the template (with ng-repeat) to populate the list of events.
-  $scope.eventsList = {}
+  $scope.eventsList = []
 
   $scope.initNewEventForm = function() {
     $scope.newEvent = {}
@@ -58,14 +64,44 @@ angular.module('lunchCorgi.events', [])
     if ( $window.localStorage.getItem('com.corgi') ) {
       Events.getEvents($scope.pageNumber)
       .then(function(data) {
+
         // set $scope.eventsList equal to the data we get back from our http request - that's how we 
         // populate the actual event views in the template.
         $scope.eventsList = data;
+        $scope.flagAllEvents()
       });
     } else {
       $location.path('/signin');
     }
   };
+
+    $scope.flagAllEvents = function() {
+    // send request to services.js, which in turn sends the actual http request to events-controller in the server.
+    if ( $window.localStorage.getItem('com.corgi') ) {
+      // debugger
+      var userToken = $window.localStorage.getItem('com.corgi');
+      Events.getUserEvents($scope.pageNumber, userToken)
+      .then(function(data) {
+
+        // set $scope.eventsList equal to the data we get back from our http request - that's how we 
+        // populate the actual event views in the template.
+        var activeIds = data.map(function(item) {
+          return item._id
+        })
+        for(var x = 0; x < $scope.eventsList.length; x++) {
+            if(activeIds.indexOf($scope.eventsList[x]._id) >= 0)
+              $scope.eventsList[x].available = true
+            else $scope.eventsList[x].available = false
+        }
+      console.log($scope.eventsList)
+      });
+    } else {
+      // $location.path('/signin');
+      $scope.activeEvents = false;
+    }
+  };
+
+
 
   $scope.nextPage = function() {
     // need some way to limit how many pages people can go forward; it seems to get messed up if people 
@@ -82,8 +118,11 @@ angular.module('lunchCorgi.events', [])
     }
   };
   
+
+
   // show events when the page is first loaded.
   $scope.viewAllEvents()
+  
   // populate new event form with default values
   $scope.initNewEventForm()
 

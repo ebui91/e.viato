@@ -27,7 +27,11 @@
                 {{task.name}}
               </div>
             </div>
-            <button class="btn waves-effect waves-light right" ng-click='joinEvent(event)'>Join this event!</button>
+
+          </div>
+
+            <button ng-hide="event.available" class="btn waves-effect waves-light right" ng-click='joinEvent(event)'>Join this event!</button>
+
           </div>
         </li>
       </ul>   

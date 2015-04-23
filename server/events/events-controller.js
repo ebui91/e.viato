@@ -19,6 +19,15 @@ mongo.connect('mongodb://localhost:27017/corgi', function(err, db) {
 module.exports = {
 	allEvents: function(req, res) {
     var events = []
+    // console.log('logging')
+
+    //
+    var username
+    if(req.query.token) {
+      var userToken = req.query.token;
+
+      username = jwt.decode(userToken, 'secret');
+    }
 
     var cursorCount = 0
     // this is the real first line, where only events happening in the future are fetched, but...
@@ -27,8 +36,17 @@ module.exports = {
     var iso = (new Date()).toISOString();
     
     // ...for testing, we're just fetching everything.
-    var options = { 'sort' : {'datetime': 1}, 'limit': 10}
-    var getEvents = DB.collection('corgievent').find({ 'datetime': { $gt: iso}})
+   
+
+    var options = username ?
+      { attendeeIDs: {$elemMatch: {'username': username}}}
+    : { 'datetime': { $gt: iso}}
+    console.log(options)
+    // debugger
+    var getEvents = DB.collection('corgievent').find(options)
+
+
+    // var options = { 'sort' : {'datetime': 1}, 'limit': 10}
     // var getEvents = DB.collection('corgievent').find({ 'datetime': { $gt: iso}},options)
       // then sort time by ascending so we can get the events happening next...
       .sort({ datetime: 1 })
@@ -73,6 +91,7 @@ module.exports = {
 
         // if all found items are now in the events array, we can return the events.
         if (events.length === cursorCount) {
+          console.log(events)
           res.json(events)
           console.log('check passed')
         }
@@ -80,6 +99,10 @@ module.exports = {
         })
 
       })
+
+      // getEvents.on('end', function() {
+      //   res.end()
+      // })
 	},
 
 	newEvent: function(req, res) {
@@ -119,10 +142,12 @@ module.exports = {
     // but keeping this code in case we want to store other user info later
     // such as a photo
     var foundUser = DB.collection('corgiuser').find( {name: username} );
-
+    console.log(foundUser)
     foundUser.on('data', function (user) {
       // var id = user._id.toString();
-      DB.collection('corgievent').update({_id: ObjectID(eventID)}, { $push: {attendeeIDs: {username: user.name} } });
+      // var length = DB.collection('corgievent').dataSize()
+      DB.collection('corgievent').update({_id: ObjectID(eventID)}, { $addToSet: {attendeeIDs: {username: user.name} } });
+      
       res.end();
     });
 
