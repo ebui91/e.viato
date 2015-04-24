@@ -1,24 +1,22 @@
 ![lunchcorgi](/client/assets/login.gif)
 
-e.viato
-===========================
 
 Contributers
 ------------
 
-Kevin Brown [Kevin's Github profile] (https://github.com/spintronics)
+[Kevin Brown](https://github.com/spintronics)
 
-Jason Collins [Jason's Github profile](https://github.com/SaintEmbers)
+[Jason Collins](https://github.com/SaintEmbers)
 
-Zach Royer [Zach's Github profile](https://github.com/zroyer)
+[Zach Royer](https://github.com/zroyer)
 
-Richard Young [Stephanie's Github profile](https://github.com/youngrichard)
+[Richard Young](https://github.com/youngrichard)
 
 
 Stack
 -----
 
-Mongo, Express, Angular, Node
+MongoDB, Express, AngularJS, Node.js, and some additional styling with Materialize
 
  - NOTE -
 The project does not use Mongoose for purposes of ORM.  However there are some methods in the project which do use Mongoose so the references and 'requires' are still in there.
