@@ -30,6 +30,9 @@ blockquote {
   color: #ef5350;
 }
 
+.outside {
+  margin-top: 5%
+}
 
 .username {
   /*color: #FFF;*/
