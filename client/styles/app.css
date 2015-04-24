@@ -18,6 +18,10 @@ blockquote {
   border-color: #ef5350;
 }
 
+#glass {
+  margin-left: 1%;
+}
+
 #signin {
   position: relative;
 }

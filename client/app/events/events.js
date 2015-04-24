@@ -2,6 +2,7 @@ angular.module('lunchCorgi.events', [])
 
 .controller('EventsController', function ($scope, $window, $location, Events) {
 
+  $scope.eventsList = []
   $scope.event = {}
   $scope.hideme=false
   $scope.user = ''
@@ -39,7 +40,8 @@ angular.module('lunchCorgi.events', [])
         Events.addEvent($scope.newEvent, userToken)
         .then(function(newEvent) {
           Materialize.toast('New Event Created!', 1000)
-          $scope.viewAllEvents();
+          newEvent.disabled = 'disabled'
+          $scope.eventsList.push(newEvent)
           $scope.initNewEventForm()
         });
       } else {
@@ -47,7 +49,6 @@ angular.module('lunchCorgi.events', [])
       }
   }
 
-  $scope.eventsList = {}
 
   $scope.initNewEventForm = function() {
     $scope.newEvent = {}
