@@ -70,7 +70,7 @@
           <input type= "text" ng-model = "newEvent.location" placeholder="Location">
         </div>
         <div class="input-field col s12">
-          <textarea id="details" class="materialize-textarea">
+          <textarea id="details" ng-model= "newEvent.details" class="materialize-textarea">
           </textarea>
           <label for="details">Details</label>
         </div>
@@ -81,7 +81,7 @@
           <input type= "time" ng-model = "newEvent.time">
         </div>
         <div class="input-field col s12">
-          <input type="text" name="add-task" class='add task' placeholder="Add your item here" ng-model="taskName" ng-keyup="addTask()"/>
+          <input type="text" name="add-task" class='add task' placeholder="Add items here" ng-model="taskName" ng-keyup="addTask()"/>
         </div>
         <div class="col s12">
           <div class="btn waves-effect waves-light btn-large right" ng-click="addEvent()">Submit Event</div>
