@@ -46,11 +46,23 @@ angular.module('lunchCorgi.services', [])
       });
   }
 
+  var assignTask = function(event, task, user) {
+    return $http({
+      method: 'PUT',
+      url: '/api/events/task',
+      data: {task: task, event: event, user: user}
+    })
+    .then(function() {
+      return
+    })
+  }
+
   // return all of our methods as an object, so we can use them in our controllers
   return {
     getEvents : getEvents,
     joinEvent: joinEvent,
-    addEvent : addEvent
+    addEvent : addEvent,
+    assignTask: assignTask
   }
 
 })

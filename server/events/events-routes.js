@@ -12,4 +12,5 @@ module.exports = function (app) {
     .get(eventsController.allEvents)
     .post(eventsController.newEvent)
     .put(eventsController.joinEvent);
+  app.route('/task').put(eventsController.assignTask)
 };
