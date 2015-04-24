@@ -9,7 +9,7 @@ angular.module('lunchCorgi.events', [])
 
 
   var userToken = $window.localStorage.getItem('com.corgi')
-  
+
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
     var attending = false

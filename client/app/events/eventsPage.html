@@ -34,7 +34,7 @@
           <!-- <div class='date'>{{event.date}}</div>
           <div class='time'>{{event.time}}</div> -->
           <div class='time'><b>When:</b> {{event.datetime | date : 'MM/dd/yyyy @ h:mma' }} ({{event.datetime | fromNow }})</div>
-          
+
           <div class="divider"></div>
           <div class='attendee-list'>
             <b>Who's Going?</b>
@@ -47,8 +47,8 @@
             <b>Items:</b>
             <form action="#">
               <div class='task' ng-repeat="task in event.tasklist">
-                <input type="checkbox" id="{{$index}}"/>
-                <label class="black-text" for="{{$index}}">{{task.name}}</label>
+                <input type="checkbox" id="{{event.description + task.name + $index}}"/>
+                <label class="black-text" for="{{event.description + task.name + $index}}">{{task.name}}</label>
               </div>
             </form>
           </div>
