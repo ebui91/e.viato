@@ -5,8 +5,11 @@ Contributers
 ------------
 
 [Kevin Brown](https://github.com/spintronics)
+
 [Jason Collins](https://github.com/SaintEmbers)
+
 [Zach Royer](https://github.com/zroyer)
+
 [Richard Young](https://github.com/youngrichard)
 
 
