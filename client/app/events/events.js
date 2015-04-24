@@ -3,6 +3,7 @@ angular.module('lunchCorgi.events', [])
 .controller('EventsController', function ($scope, $window, $location, Events) {
 
   $scope.event = {}
+  $scope.hideme=false
 
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
@@ -10,7 +11,8 @@ angular.module('lunchCorgi.events', [])
     Events.joinEvent(evt, userToken)
     .then(function() {
       evt.attendeeIDs.push({username:'USER'})
-    });z
+    });
+    $scope.hideme=true
   }
 
   $scope.addEvent = function() {
