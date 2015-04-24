@@ -7,11 +7,11 @@ angular.module('lunchCorgi.services', [])
   // e.getEvents(1)
   
   // this function finds events with time greater than now (that's what Date.now is)...
-  var getEvents = function(pageNum) {
+  var getEvents = function(token) {
     return $http({
       method: 'GET',
       url: '/api/events',
-      params: {pageNum: pageNum}
+      params: {token: token}
     })
     .then(function(res) {
       return res.data
@@ -28,7 +28,7 @@ angular.module('lunchCorgi.services', [])
       .then(function (resp) {
         //probably superfluous, but maybe handy for debugging for now - 04/16/2015 - saf
         Materialize.toast("You were added to event " + event.description, 4000)
-        return resp.statusCode; 
+        return resp; 
       });
   }  
 
