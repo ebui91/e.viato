@@ -4,16 +4,30 @@ angular.module('lunchCorgi.events', [])
 
   $scope.event = {}
   $scope.hideme=false
+  $scope.user = ''
 
+
+  var userToken = $window.localStorage.getItem('com.corgi')
+  
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
-    var userToken = $window.localStorage.getItem('com.corgi');
+    var attending = false
+    evt.attendeeIDs.forEach(function(person) {
+      if(person.username === $scope.user) attending = true
+    })
+    if(attending) return
+    // var userToken = $window.localStorage.getItem('com.corgi');
     Events.joinEvent(evt, userToken)
-    .then(function() {
-      evt.attendeeIDs.push({username:'USER'})
+    .then(function(res) {
+      evt.attendeeIDs.push({username: res.data})
+      evt.disabled = 'disabled'
     });
-    $scope.hideme=true
   }
+
+  $scope.logout = function() {
+    $window.localStorage.setItem('com.corgi', '')
+  }
+
 
   $scope.addEvent = function() {
     if ($scope.newEvent.description !== "" &&
@@ -48,9 +62,21 @@ angular.module('lunchCorgi.events', [])
 
   $scope.viewAllEvents = function() {
     if ( $window.localStorage.getItem('com.corgi') ) {
-      Events.getEvents()
+      Events.getEvents(userToken)
       .then(function(data) {
-        $scope.eventsList = data;
+        var exists = false
+        $scope.user = data.user
+        data.events.map(function(e) {
+          exists = false
+          e.attendeeIDs.forEach(function(person) {
+            if(person.username === data.user)
+            exists = true
+          })
+          if(exists) e.disabled = 'disabled'
+          else e.disabled = ''
+          return e
+        })
+        $scope.eventsList = data.events;
       });
     } else {
       $location.path('/signin');

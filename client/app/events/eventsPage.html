@@ -9,7 +9,7 @@
     <ul class="right hide-on-med-and-down">
       <!-- <li><a href=""><i class="mdi-action-search"></i></a></li> -->
       <li><a href="#"><i class="mdi-navigation-refresh"></i></a></li>
-      <li><a href="/#/signin"><i class="mdi-action-exit-to-app"></i></a></li>
+      <li><a href="/#/signin"><i ng-click="logout()" class="mdi-action-exit-to-app"></i></a></li>
     </ul>
   </div>
 </nav>
@@ -51,7 +51,7 @@
               </div>
             </form>
           </div>
-          <button class="btn waves-effect waves-light right" ng-click='joinEvent(event)' ng-hide="hideme">
+          <button class="btn waves-effect waves-light right {{event.disabled}}" ng-click='joinEvent(event)'>
             Join this event!
           </button>
         </div>
