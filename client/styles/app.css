@@ -14,6 +14,10 @@ blockquote {
   margin: 15px 0 0 0;
 }
 
+.quote {
+  border-color: #ef5350;
+}
+
 #signin {
   position: relative;
 }
@@ -21,6 +25,11 @@ blockquote {
 #signup {
   position: relative;
 }
+
+.salmon {
+  color: #ef5350;
+}
+
 
 .username {
   /*color: #FFF;*/
