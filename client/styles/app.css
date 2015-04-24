@@ -1,140 +1,115 @@
-/* app css stylesheet */
+/*html {
+  background: url(/client/assets/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
-/*.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-.events {
-
-}
-.addevent {
-  float: right;
-}
-
-
-#todoapp h1 {
-  font-size: 36px;
-  text-align: center;
-}
-
-#todoapp input[type="text"] {
-  width: 80%;
-  font-size: 20px;
-  line-height: 1em;
-  padding: 10px;
-}
-
-#main {
-  display: none;
-}
-
-#todo-list {
-  margin: 10px 0;
-  padding: 0;
-  list-style: none;
-}
-
-#todo-list li {
-  padding: 15px 20px 15px 0;
-  position: relative;
-  font-size: 20px;
-  border-bottom: 1px solid #cccccc;
-}
-
-#todo-list li .completed-true  {
-    color: #ccc;
-    margin-left: 30px;
-    text-decoration: line-through;
-}
-
-#todo-list li .completed-false  {
-    margin-left: 30px;
-}
-
-.delete.icon {
-  width: 20px;
-  height: 20px;
-  background-image: url("../assets/x.gif");
-  display: inline-block;
   position: absolute;
-  right: 0px;
-  top: 15px;
-  cursor: pointer;
-}
-
-li.focus {
-  background-color: #eee;
-}
-
-select {
-    padding:3px;
-    background: #f8f8f8;
-    color:#888;
-    display:none;
-    cursor:pointer;
-    width: 7%;
-    margin: 10px;
-    height: 28px;
-}
-
-.priority {
-  width: 10%;
-  height: 20px;
-  display: inline-block;
-  position: absolute;
-  right: 25px;
-  top: 15px;
-  cursor: pointer;
-  background-color: #fff;
-  border: 1px solid #777;
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.4em;
-}
-
-.priority.medium {
-  background-color: #FFCB00;
-}
-
-.priority.high {
-  background-color: red;
-}*/
-
-/*.slideout-menu {
-  position: fixed;
-  top: 75px;
-  right: -100%;
   width: 100%;
+  height: 100%;
+}
+*/
+blockquote {
+  margin: 15px 0 0 0;
+}
+
+#signin {
+  position: relative;
+}
+
+#signup {
+  position: relative;
+}
+
+.username {
+  /*color: #FFF;*/
+}
+
+.password {
+  /*color: #FFF;*/
+}
+
+#search {
+  padding-left: 0;
+  /*color: #FFF;*/
 }
 
 .eventList {
-  position: fixed;
-  top: 75px;
-  left: 0%;
-  width: 100%;
-}*/
+  /*color: white;*/
+}
+
+.addevent {
+  /*color: white;*/
+}
+
+.eventInfo {
+  margin-left: 20px;
+}
+
+
+.slide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.slide.ng-enter,
+.slide.ng-leave {
+    -webkit-transition: all 1s ease;
+    transition: all 1s ease;
+}
+.slide.ng-enter {
+    left: 100%;
+}
+.slide.ng-enter-active {
+    left: 0;
+}
+.slide.ng-leave {
+    left: 0;
+}
+.slide.ng-leave-active {
+    left: -100%;
+}
+
+
+
+
+
+.rotate {
+    -webkit-animation-duration: 1s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.ng-leave.rotate {
+    -webkit-animation-name: rotate-leave;
+}
+.ng-enter.rotate {
+    -webkit-animation-name: rotate-enter;
+}
+@-webkit-keyframes rotate-leave {
+    0% {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(0);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(-180deg);
+        opacity: 0;
+    }
+}
+@-webkit-keyframes rotate-enter {
+    0% {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(-180deg);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform-origin: center center;
+        -webkit-transform: rotate(-360deg);
+        opacity: 1;
+    }
+}

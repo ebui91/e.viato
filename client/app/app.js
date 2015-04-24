@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 var lunchCorgi = angular.module('lunchCorgi', [
   'ngRoute',
+  'ngAnimate',
   'lunchCorgi.services',
   'lunchCorgi.events',
   'lunchCorgi.signup'

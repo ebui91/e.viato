@@ -1,28 +1,32 @@
-<div class="container" id='signup' ng-controller = "SignUpCtrl">
+<div class="outside">
 
-  <form name="signupForm" ng-submit="signup()">
+  <div class="container center" id='signup' ng-controller = "SignUpCtrl">
 
-    <div class="row">
-      <div class="input-field">
-        <input placeholder="username" type='text' ng-model='user.username' required>
+    <form name="signupForm" ng-submit="signup()">
+
+      <div class="row">
+        <div class="input-field">
+          <input class="username" placeholder="username" type='text' ng-model='user.username' required>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="input-field">
-        <input placeholder="password" type='password' ng-model='user.password' required>
+      <div class="row">
+        <div class="input-field">
+          <input class="password" placeholder="password" type='password' ng-model='user.password' required>
+        </div>
       </div>
-    </div>
 
-    <h5>If you already have an account,
-      <a href="#/signin">sign in here!</a>
-    </h5>
+      <h5>If you already have an account,
+        <a href="#/signin">sign in here!</a>
+      </h5>
 
-    <button class="btn waves-effect waves-light">
-      Sign Up
-      <i class="mdi-content-send left"></i>
-    </button>
+      <button class="btn waves-effect waves-light">
+        Sign Up
+        <i class="mdi-content-send left"></i>
+      </button>
 
-  </form>
+    </form>
+
+  </div>
 
 </div>

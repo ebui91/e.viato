@@ -1,43 +1,32 @@
-<div class="container center" id='signin' ng-controller = "SignUpCtrl">
+<div class="outside">
 
-  <form name="signinForm" ng-submit="signin()">
+  <div class="container center" id='signin' ng-controller = "SignUpCtrl">
 
-    <div class="row">
-      <div class="input-field">
-        <input placeholder="username" type='text' ng-model='user.username' required>
+    <form name="signinForm" ng-submit="signin()">
+
+      <div class="row">
+        <div class="input-field">
+          <input class="username" placeholder="username" type='text' ng-model='user.username' required>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="input-field">
-        <input placeholder="password" type='password' ng-model='user.password' required>
+      <div class="row">
+        <div class="input-field">
+          <input class="password" placeholder="password" type='password' ng-model='user.password' required>
+        </div>
       </div>
-    </div>
 
-    <h5>If you don't have an account,
-      <a href="#/signup">sign up here!</a>
-    </h5>
+      <h5>If you don't have an account,
+        <a href="#/signup">sign up here!</a>
+      </h5>
 
-    <button class="btn waves-effect waves-light">
-      Sign In
-      <i class="mdi-content-send left"></i>
-    </button>
+      <button class="btn waves-effect waves-light">
+        Sign In
+        <i class="mdi-content-send left"></i>
+      </button>
 
-  </form>
+    </form>
+
+  </div>
 
 </div>
-
-
-<!--
-<div class="slider">
-  <ul class="slides">
-    <li>
-      <img src="http://lorempixel.com/580/250/nature/1">
-      <div class="caption center-align">
-        <h3>This is our big Tagline!</h3>
-        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-      </div>
-    </li>
-  </ul>
-</div>
--->

@@ -4,45 +4,33 @@ angular.module('lunchCorgi.events', [])
 
   $scope.event = {}
 
-  //if $scope.invalid is true, it will display an error message in the view
-
   $scope.joinEvent = function(evt) {
     $scope.event = evt;
     var userToken = $window.localStorage.getItem('com.corgi');
     Events.joinEvent(evt, userToken)
     .then(function() {
-      evt.attendeeIDs.push({username:'bob'})
-    });
+      evt.attendeeIDs.push({username:'USER'})
+    });z
   }
 
   $scope.addEvent = function() {
-    // check that all fields in the events.html form are filled out
-    // need to add a check to make sure user is logged in
     if ($scope.newEvent.description !== "" &&
-        $scope.newEvent.location !== "" &&
-        $scope.newEvent.datetime !== "" ) {
+      $scope.newEvent.location !== "" &&
+      $scope.newEvent.datetime !== "" ) {
 
-          // $scope.invalid = false
-          var userToken = $window.localStorage.getItem('com.corgi');
+        var userToken = $window.localStorage.getItem('com.corgi');
 
-          Events.addEvent($scope.newEvent, userToken)
-          .then(function(newEvent) {
-            // need a better way to notify people, but this is simple for now
-            Materialize.toast('New Event Created!', 1000)
-            // return to defaults
-            $scope.viewAllEvents();
-            $scope.initNewEventForm()
-          });
-        } else {
-          Materialize.toast('Please fill in all of the fields', 1000)
-          // $scope.invalid = true
-        }
+        Events.addEvent($scope.newEvent, userToken)
+        .then(function(newEvent) {
+          Materialize.toast('New Event Created!', 1000)
+          $scope.viewAllEvents();
+          $scope.initNewEventForm()
+        });
+      } else {
+        Materialize.toast('Please fill in all of the fields', 1000)
+      }
   }
 
-  // first page of events is page number 0; when more events are viewed, the page number is increased
-  $scope.pageNumber = 0
-
-  // eventsList is an array used in the template (with ng-repeat) to populate the list of events.
   $scope.eventsList = {}
 
   $scope.initNewEventForm = function() {
@@ -56,13 +44,9 @@ angular.module('lunchCorgi.events', [])
   }
 
   $scope.viewAllEvents = function() {
-    // send request to services.js, which in turn sends the actual http request to events-controller in the server.
-
     if ( $window.localStorage.getItem('com.corgi') ) {
-      Events.getEvents($scope.pageNumber)
+      Events.getEvents()
       .then(function(data) {
-        // set $scope.eventsList equal to the data we get back from our http request - that's how we
-        // populate the actual event views in the template.
         $scope.eventsList = data;
       });
     } else {
@@ -70,41 +54,20 @@ angular.module('lunchCorgi.events', [])
     }
   };
 
-  $scope.nextPage = function() {
-    // need some way to limit how many pages people can go forward; it seems to get messed up if people
-    // navigate past where there are no more results to show.
-    $scope.pageNumber++
-    $scope.viewAllEvents()
-  };
-
-  $scope.prevPage = function() {
-    // only go back a page if the page number is greater than 0
-    if ($scope.pageNumber > 0) {
-      $scope.pageNumber--
-      $scope.viewAllEvents()
-    }
-  };
-
-  // show events when the page is first loaded.
   $scope.viewAllEvents()
-  // populate new event form with default values
   $scope.initNewEventForm()
-
   $scope.tasklist = [];
-  //$scope.priority = 'medium';
 
   $scope.addTask = function() {
-      if(event.keyCode == 13 && $scope.taskName) {
-          $scope.tasklist.push({"name": $scope.taskName, "completed": false});
-          $scope.newEvent.tasklist.push({"name": $scope.taskName, "completed": false});
-            //,"priority": $scope.priority});
-          $scope.taskName = "";
-          //$scope.priority = 'medium';
-      }
+    if(event.keyCode == 13 && $scope.taskName) {
+      $scope.tasklist.push({"name": $scope.taskName, "completed": false});
+      $scope.newEvent.tasklist.push({"name": $scope.taskName, "completed": false});
+      $scope.taskName = "";
+    }
   }
 
   $scope.deleteTask = function(index) {
-      $scope.tasklist.splice(index, 1);
+    $scope.tasklist.splice(index, 1);
   }
 })
 .directive('accordian', function() {

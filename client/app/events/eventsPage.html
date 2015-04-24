@@ -1,14 +1,33 @@
+<nav id="nav" class="teal accent-4">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo">
+      <img style="height:55px;" src="../../client/assets/logoicon4.png"></img>
+    </a>
+    <a href="#!" class="brand-logo center">
+      <img style="height:55px;" src="../../client/assets/navtitle.png"></img>
+    </a>
+    <ul class="right hide-on-med-and-down">
+      <!-- <li><a href=""><i class="mdi-action-search"></i></a></li> -->
+      <li><a href="#"><i class="mdi-navigation-refresh"></i></a></li>
+      <li><a href="/#/signin"><i class="mdi-action-exit-to-app"></i></a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="row">
 
   <div class="eventList col s6">
-    <h5><blockquote style="margin: 15px 0 0 0"> CHOOSE AN EVENT HERE: </blockquote></h5>
-    <ul class='collapsible popout' data-collapsible="accordion">
-      <li class = 'event accordian' ng-repeat="event in eventsList | orderBy:'datetime'" accordian>
-        <div class='description collapsible-header'>
+    <h5><blockquote> Browse events: </blockquote></h5>
+    <div class="input-field">
+      <i class="mdi-action-search prefix"></i>
+      <input id="search" class="transparent" placeholder="Search Events" type="search" ng-model="searchText" required>
+   </div>
+   <ul class='collapsible popout' data-collapsible="accordion">
+      <li class = 'event accordian' ng-repeat="event in eventsList | orderBy:'datetime' | filter:searchText" accordian>
+        <div class='description collapsible-header transparent'>
           <b class="red-text text-darken-4">{{event.description}}</b> @ {{event.location}}
         </div>
-        <div class='eventInfo collapsible-body' style="margin-left: 20px;">
+        <div class='eventInfo collapsible-body'>
           <div class='creator'><b>Host:</b> {{event.creator}}</div>
           <!-- <div class='location'><b>Location:</b> {{event.location}} </div> -->
           <!-- <div class='date'>{{event.date}}</div>
@@ -29,7 +48,7 @@
               {{task.name}}
             </div>
           </div>
-          <button class="btn waves-effect waves-light right" ng-click='joinEvent(event)' ng-show="invalid">
+          <button class="btn waves-effect waves-light right" ng-click='joinEvent(event)'>
             Join this event!
           </button>
         </div>
@@ -39,7 +58,7 @@
 
 
   <div class='addevent col s6 z-depth-1'>
-    <h5><blockquote style="margin: 15px 0 0 0"> CREATE AN EVENT HERE: </blockquote></h5>
+    <h5><blockquote> Create an event: </blockquote></h5>
       <form name="eventForm" ng-submit="addEvent()">
         <div class="input-field col s12">
           <input type= "text" ng-model = "newEvent.description" placeholder="Event Name">
@@ -64,9 +83,6 @@
         <div class="col s12">
           <div class="btn waves-effect waves-light btn-large right" ng-click="addEvent()">Submit Event</div>
         </div>
-        <!-- <h5 class="red-text text-darken-3" ng-if="invalid">
-          Please fill in all of the fields.
-        </h5> -->
       </form>
 
     <div class="col s12">

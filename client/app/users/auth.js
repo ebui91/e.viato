@@ -36,7 +36,7 @@ angular.module('lunchCorgi.signup', ['ngRoute'])
   };
 
   $scope.signout = function() {
-    $window.localStorage.setItem('com.corgi','');
+    $window.localStorage.removeItem('com.corgi');
     $location.path('/signin');
   }
 
