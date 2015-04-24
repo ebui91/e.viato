@@ -1,11 +1,11 @@
 <nav id="nav" class="teal accent-4">
   <div class="nav-wrapper">
-    <a href="#!" class="brand-logo hide-on-med-and-down" id="glass">
+    <span class="brand-logo hide-on-med-and-down" id="glass">
       <img style="height:55px;" src="../../client/assets/logoicon5.png"></img>
-    </a>
-    <a href="#!" class="brand-logo center">
+    </span>
+    <span class="brand-logo center">
       <img style="height:55px;" src="../../client/assets/navtitle.png"></img>
-    </a>
+    </span>
     <ul class="right hide-on-med-and-down">
       <!-- <li><a href=""><i class="mdi-action-search"></i></a></li> -->
       <li><a href="#"><i class="mdi-navigation-refresh"></i></a></li>
@@ -33,11 +33,11 @@
           <!-- <div class='location'><b>Location:</b> {{event.location}} </div> -->
           <!-- <div class='date'>{{event.date}}</div>
           <div class='time'>{{event.time}}</div> -->
-          <div class='time'><b>When:</b> {{event.datetime | date : 'MM/dd/yyyy @ h:mma' }}</div>
-          <!-- <div class='time'>{{event.datetime | fromNow }}</div> -->
+          <div class='time'><b>When:</b> {{event.datetime | date : 'MM/dd/yyyy @ h:mma' }} ({{event.datetime | fromNow }})</div>
+          
           <div class="divider"></div>
           <div class='attendee-list'>
-            <b>Who's Going?:</b>
+            <b>Who's Going?</b>
             <div class='attendee' ng-repeat="attendee in event.attendeeIDs">
               {{attendee.username}}
             </div>
