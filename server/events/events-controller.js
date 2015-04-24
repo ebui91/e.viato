@@ -25,6 +25,11 @@ module.exports = {
     // var getEvents = DB.collection('corgievent').find({ datetime: { $gt: Date.now() } })
     
     var iso = (new Date()).toISOString();
+    var userToken = req.query.token;
+
+    var username = jwt.decode(userToken, 'secret');
+
+    var foundUser = DB.collection('corgiuser').find( {name: username} );
     
     // ...for testing, we're just fetching everything.
     var options = { 'sort' : {'datetime': 1}, 'limit': 10}
@@ -73,7 +78,7 @@ module.exports = {
 
         // if all found items are now in the events array, we can return the events.
         if (events.length === cursorCount) {
-          res.json(events)
+          res.json({events: events, user: username})
           console.log('check passed')
         }
           
@@ -123,7 +128,8 @@ module.exports = {
     foundUser.on('data', function (user) {
       // var id = user._id.toString();
       DB.collection('corgievent').update({_id: ObjectID(eventID)}, { $push: {attendeeIDs: {username: user.name} } });
-      res.end();
+      // debugger
+      res.end(user.name);
     });
 
   }
