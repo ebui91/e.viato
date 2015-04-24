@@ -47,8 +47,8 @@
             <b>Items:</b>
             <form action="#">
               <div class='task' ng-repeat="task in event.tasklist">
-                <input type="checkbox" id="{{event.description + task.name + $index}}"/>
-                <label class="black-text" for="{{event.description + task.name + $index}}">{{task.name}}</label>
+                <input ng-click="assignTask(event, task)" type="checkbox" ng-checked="task.volunteer" ng-disabled="task.volunteer" id="{{event.description + task.name + $index}}"/>
+                <label class="black-text" for="{{event.description + task.name + $index}}">{{task.name}}&nbsp&nbsp<span ng-if="task.volunteer">-</span>&nbsp&nbsp<span class="salmon">{{task.volunteer}}</span></label>
               </div>
             </form>
           </div>

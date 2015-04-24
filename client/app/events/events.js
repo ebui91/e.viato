@@ -6,6 +6,7 @@ angular.module('lunchCorgi.events', [])
   $scope.event = {}
   $scope.hideme=false
   $scope.user = ''
+  $scope.eventsList = []
 
 
   var userToken = $window.localStorage.getItem('com.corgi')
@@ -23,6 +24,14 @@ angular.module('lunchCorgi.events', [])
       evt.attendeeIDs.push({username: res.data})
       evt.disabled = 'disabled'
     });
+  }
+
+  $scope.assignTask = function(evt, task) {
+    Events.assignTask(evt, task, $scope.user)
+    .then(function(res) {
+      task.volunteer = $scope.user
+      
+    })
   }
 
   $scope.logout = function() {

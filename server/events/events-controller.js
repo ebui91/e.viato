@@ -132,5 +132,22 @@ module.exports = {
       res.end(user.name);
     });
 
+  },
+
+  assignTask: function(req, res) {
+
+    var myEvent = DB.collection('corgievent').find({ _id: ObjectID(req.body.event._id)});
+    myEvent.on('data', function(yourEvent) {
+      yourEvent.tasklist.forEach(function(task, dex) {
+        var setModifier = {$set: {}}
+        var query = 'tasklist.' + dex + '.volunteer'
+        setModifier.$set[query] = req.body.user
+        if(task.name === req.body.task.name) {
+          DB.collection('corgievent').update({ _id: ObjectID(req.body.event._id)}, setModifier)
+        }
+      })
+      res.end()
+      
+    })
   }
 }
