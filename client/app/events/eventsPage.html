@@ -20,7 +20,7 @@
     <h5><blockquote class="quote"> Browse events: </blockquote></h5>
     <div class="input-field">
       <i class="mdi-action-search prefix"></i>
-      <input id="search" class="transparent" placeholder="Search Events" type="search" ng-model="searchText" required>
+      <input id="search" ui-items="eventsList" class="transparent" placeholder="Search Events" type="search" ng-model="searchText" required>
    </div>
    <ul class='collapsible popout' data-collapsible="accordion">
       <li class = 'event accordian' ng-repeat="event in eventsList | orderBy:'datetime' | filter:searchText" accordian>

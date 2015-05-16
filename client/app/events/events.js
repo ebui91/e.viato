@@ -118,3 +118,15 @@ angular.module('lunchCorgi.events', [])
     }
   }
 })
+.directive('autocomplete', function($timeout) {
+  return function($scope, element, attribute) {
+    element.autocomplete({
+      source: $scope[attribute.uiItems],
+      select: function() {
+        $timeout(function() {
+          element.trigger('input');
+        }, 0)
+      }
+    });
+  };
+})
