@@ -1,5 +1,6 @@
 ![lunchcorgi](/client/assets/login.gif)
-
+![login] (http://i.imgur.com/Pzz4syp.jpg)
+![home] (http://i.imgur.com/eTKCDVb.jpg)
 
 Contributers
 ------------
