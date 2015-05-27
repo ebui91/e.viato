@@ -1,6 +1,4 @@
 ![lunchcorgi](/client/assets/login.gif)
-![login] (http://i.imgur.com/Pzz4syp.jpg)
-![home] (http://i.imgur.com/eTKCDVb.jpg)
 
 Contributers
 ------------
@@ -54,3 +52,9 @@ node server/server.js
 ```
 
 Finally, navigate to `http://localhost:8000` to start creating events!
+
+Screenshots
+------------
+
+![login] (http://i.imgur.com/Pzz4syp.jpg)
+![home] (http://i.imgur.com/eTKCDVb.jpg)
